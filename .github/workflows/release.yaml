@@ -30,8 +30,8 @@ jobs:
           REF: ${{ github.ref }}
         run: |
           BRANCH=release/${REF:10}
-          git config --local user.email "ci@pterodactyl.io"
-          git config --local user.name "Pterodactyl CI"
+          git config --local user.email "ci@cmrxnn.me"
+          git config --local user.name "minci."
           git checkout -b $BRANCH
           git push -u origin $BRANCH
           sed -i "s/    'version' => 'canary',/    'version' => '${REF:11}',/" config/app.php
@@ -41,20 +41,8 @@ jobs:
 
       - name: Create release archive
         run: |
-          rm -rf node_modules tests CODE_OF_CONDUCT.md CONTRIBUTING.md flake.lock flake.nix phpunit.xml shell.nix 
-          tar -czf panel.tar.gz * .editorconfig .env.example .eslintignore .eslintrc.js .gitignore .prettierrc.json
-
-      - name: Extract changelog
-        env:
-          REF: ${{ github.ref }}
-        run: |
-          sed -n "/^## ${REF:10}/,/^## /{/^## /b;p}" CHANGELOG.md > ./RELEASE_CHANGELOG
-
-      - name: Create checksum and add to changelog
-        run: |
-          SUM=`sha256sum panel.tar.gz`
-          echo -e "\n#### SHA256 Checksum\n\n\`\`\`\n$SUM\n\`\`\`\n" >> ./RELEASE_CHANGELOG
-          echo $SUM > checksum.txt
+          rm -rf node_modules tests phpunit.xml
+          tar -czf panel.tar.gz * .env.example .eslintignore .eslintrc.js .gitignore .prettierrc.json
 
       - name: Create release
         id: create_release
@@ -76,14 +64,3 @@ jobs:
           asset_path: panel.tar.gz
           asset_name: panel.tar.gz
           asset_content_type: application/gzip
-
-      - name: Upload release checksum
-        id: upload-release-checksum
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./checksum.txt
-          asset_name: checksum.txt
-          asset_content_type: text/plain

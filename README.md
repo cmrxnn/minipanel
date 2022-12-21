@@ -4,9 +4,9 @@
 <hr />
 
 <h3 align="center">installation.</h3>
-<p align="center">Please refer to the [documentation](https://minipanel.cmrxnn.me).</p>
+<p align="center">Please refer to the <a href="https://minipanel.cmrxnn.me">documentation</a>.</p>
 
 <hr />
 
 <h3 align="center">license.</h3>
-<p align="center">Please refer to the [license](https://github.com/cmrxnn/minipanel/blob/dev/LICENSE.md).</p>
+<p align="center">Please refer to the <a href="https://github.com/cmrxnn/minipanel/blob/dev/LICENSE.md">license</a>.</p>
