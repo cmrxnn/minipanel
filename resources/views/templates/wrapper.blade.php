@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>{{ config('app.name', 'Pterodactyl') }}</title>
+        <title>{{ config('app.name', 'Minipanel') }}</title>
 
         @section('meta')
             <meta charset="utf-8">
@@ -22,12 +22,12 @@
         @section('user-data')
             @if(!is_null(Auth::user()))
                 <script>
-                    window.PterodactylUser = {!! json_encode(Auth::user()->toVueObject()) !!};
+                    window.User = {!! json_encode(Auth::user()->toReactObject()) !!};
                 </script>
             @endif
-            @if(!empty($siteConfiguration))
+            @if(!empty($config))
                 <script>
-                    window.SiteConfiguration = {!! json_encode($siteConfiguration) !!};
+                    window.Config = {!! json_encode($config) !!};
                 </script>
             @endif
         @show
